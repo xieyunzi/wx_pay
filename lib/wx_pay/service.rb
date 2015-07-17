@@ -76,7 +76,7 @@ module WxPay
     end
 
     def self.make_payload(params)
-      "<xml>#{params.map { |k, v| "<#{k}>#{v}</#{k}>" }.join}<sign>#{WxPay::Sign.generate(params)}</sign></xml>"
+      "<xml>#{params.map { |k, v| "<#{k}><![CDATA[#{v}]]></#{k}>" }.join}<sign>#{WxPay::Sign.generate(params)}</sign></xml>"
     end
 
     def self.invoke_remote(url, payload)
