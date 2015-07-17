@@ -145,7 +145,7 @@ module WxPay
     def self.make_payload(params)
       sign = WxPay::Sign.generate(params)
       params.delete(:key) if params[:key]
-      "<xml>#{params.map { |k, v| "<#{k}>#{v}</#{k}>" }.join}<sign>#{sign}</sign></xml>"
+      "<xml>#{params.map { |k, v| "<#{k}><![CDATA[#{v}]]></#{k}>" }.join}<sign>#{sign}</sign></xml>"
     end
 
     def self.invoke_remote_with_cert(url, payload)
